@@ -1,205 +1,22 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-</head>
-<body>
-<h1 style="text-align:center; Strong; color:#C72428"> Learn The Heimlich Maneuver</h1>
-<div class="container straighten">
-	<div id="popup">
-        <div class="marker" id="squeeze"></div>
-        <div class="marker" id="position"></div>
-        <div class="marker" id="check"></div>
-        <div class="marker" id="safety"></div>
-        <div class="marker" id="navel"></div>
-        <img src="https://www.urmc.rochester.edu/Encyclopedia/GetImage.aspx?ImageID=294997" />
-    </div>
-</div>
+    <head>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css">
+        <link href="css/style.css" rel="stylesheet" media="screen" type="text/css">
+        <title></title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div id="quiz"></div>
+        </div>
 
-<div class="textbox">
-    <div class="popuptitle">Save A Life</div>
-    The Heimlich manuver can save a life but only with the proper technique. <br /> <br />Click on a marker to learn more about each position.
-</div>
+            <script src="js/jquery.js" type="text/javascript"></script>
+            <script src="js/tabletop.js" type="text/javascript"></script>
+            <script src="js/script.js" type="text/javascript"></script>
 
+            <script type="text/javascript">
+                var quiz = jQuery('#quiz').quiz('https://docs.google.com/spreadsheets/d/1pvTOIZZmm1uGgsSPBjzSlUmMB1QggFkpHlSOJsQMOCQ/pubhtml'); //your published spreadsheet key or URL goes here
+            </script>
 
-<style>
-.container{
-    width: 85%;
-    display: inline-block;
-    position: relative;
-}
-.textbox {
-    width: 30%;
-    display: inline-block;
-    vertical-align: top;
-    padding: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    line-height: 1.5em;
-}
-.container img {    
-    width: 100%;
-}
-.marker{
-    position: absolute;
-    width: 65px;
-    height: 65px;
-    background-color: yellow;
-    border: 2px solid white;
-    border-radius: 50%;
-    transition: background-color 0.5s ease;
-    cursor: pointer;
-}
-.marker:hover {
-    background-color: pink;
-}
-#position {
-    top:5%;
-    left: 28%;
-}
-#navel {
-    top:30%;
-    left: 62%;
-}
-#squeeze{
-	top:5%;
-    left: 70%;
-}
-#check {
-    top:5%;
-    left: 2%;
-}
-#safety{
-	top:50%;
-    left: 100%;
-}
-.straighten:after{
-	display:block;
-	height:0;
-	clear:both;
-	visibility:hidden;
-}
-#popup{
-	position:relative;
-}
-.hoverbox{
-	position:absolute;
-	padding:0.5em;
-	background-color:#fff;
-	box-shadow:1px 1px 8px rgba(0,0,0,.4);
-	z-index:300;
-	font-family: 'roboto'. Arial, san-serif;
-	line-height:1.3em;
-	min-width:100px;
-	max-width:200px;
-}
-
-.popuptitle {
-    color: #C72428;
-    font-family:'Roboto', Arial, sans-serif;
-    letter-spacing: 0.01em;
-    font-size:18px; 
-    font-weight:700;
-    clear:both;
-}
-byline {
-    border: 1px solid grey;
-    padding: 15px;
-	border-style:solid;
-	border-top:1px solid grey;
-	border-bottom:1px solid grey;
-	border-left:hidden;
-	border-right:hidden;
-}
-@media only screen and (max-width:600px) { 
-.container{
-    width: 80%
-}
-.textbox{
-    width: 80%
-}
-
-.marker{
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: yellow;
-    border: 2px solid white;
-    border-radius: 50%;
-    transition: background-color 0.5s ease;
-    cursor: pointer;
-}
-}
-@media only screen and (max-width: 768px) {
-    /* For desktop: */
-    .container{
-    width: 90%
-}
-.textbox{
-    width: 90%
-}
-
-.marker{
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: yellow;
-    border: 2px solid white;
-    border-radius: 50%;
-    transition: background-color 0.5s ease;
-    cursor: pointer;
-}
-}
-
-</style>
-
-<script>
-$(document).ready(function() {
-
-var data = 
-[["squeeze","Squeeze Tight", "Pull the clenched fist sharply and directly backward and upward under the rib cage six to 10 times quickly"],
-["navel","Above Navel, Below Rib", "Position one clenched fist above the navel and below the rib cage. Grasp your fist with your other hand."],
-["check","Check", "Check to see if individual is choking."],
-["safety","Sucess", "Heimlich maneuver saves lives but can also cause injury. Have choking victim check with a mediacl professional as soon as possible."],
-["position","Position Behind", "reach around the person's waist."]];
-
-
-$(".marker").click(function(){
-    $('.textbox').empty();
-    for (var i=0; i<data.length; i++) {
-    if (this.id == data[i][0]) {
-        $(".textbox").append('<div class="popuptitle">'+data[i][1]+'</div>' + data[i][2]);
-    } 
-    } 
-});
-
-var pos, they, thex;
-
-$('.marker').mouseover(function() {
-	$('.hoverbox').remove();
-	pos = $('#popup').offset()
-	thex = event.pageX - pos.left + 10;
-	they = event.pageY - pos.top + 0;
-	if (thex > $('#popup').width() - 150) { thex = $('#popup').width() -150};
-	if (they > $('#popup').height() - 100) { they = $('#popup').height() -100};
-	
-	for (var i=0; i<data.length; i++) {
-	if (this.id == data [i] [0]) {
-		$("#popup").append('<div class="hoverbox" style="top:' + they + 'px; left:' + thex + 'px;"><div class="popuptitle">'+data[i][1]+'</div></div>');
-	}
-	}
-});
-
-$('.marker').mouseout(function() {
-	$('.hoverbox').remove();
-});
-
-});
-</script>
-<div class="byline">
-<p> <strong>By Donte Kirby</strong> <span style="color:light black">October 9</span></p>
-<p style="color:light black", align="right">  Source of Photo and info: <a href="https://www.urmc.rochester.edu/encyclopedia/content.aspx?ContentTypeID=85&ContentID=P00825">University of Rochester Medical Center </a> </p> 
-</div>
-</body>
+    </body>
 </html>
